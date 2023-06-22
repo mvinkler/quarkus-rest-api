@@ -1,99 +1,56 @@
-# Function project
+# quarkus-rest-api
 
-Welcome to your new Quarkus function project!
+This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
-This sample project contains a single function: `functions.Function.function()`,
-the function just returns its argument.
+If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
 
-## Local execution
-Make sure that `Java 11 SDK` is installed.
+## Running the application in dev mode
 
-To start server locally run `./mvnw quarkus:dev`.
-The command starts http server and automatically watches for changes of source code.
-If source code changes the change will be propagated to running server. It also opens debugging port `5005`
-so debugger can be attached if needed.
-
-To run test locally run `./mvnw test`.
-
-## The `func` CLI
-
-It's recommended to set `FUNC_REGISTRY` environment variable.
+You can run your application in dev mode that enables live coding using:
 ```shell script
-# replace ~/.bashrc by your shell rc file
-# replace docker.io/johndoe with your registry
-export FUNC_REGISTRY=docker.io/johndoe
-echo "export FUNC_REGISTRY=docker.io/johndoe" >> ~/.bashrc 
+./mvnw compile quarkus:dev
 ```
 
-### Building
+> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at http://localhost:8080/q/dev/.
 
-This command builds OCI image for the function.
+## Packaging and running the application
 
+The application can be packaged using:
 ```shell script
-func build
+./mvnw package
 ```
+It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
+Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
 
-By default, JVM build is used.
-To enable native build set following environment variables to `func.yaml`:
-```yaml
-buildEnvs:
-- name: BP_NATIVE_IMAGE
-  value: "true"
-- name: BP_MAVEN_BUILT_ARTIFACT
-  value: func.yaml target/native-sources/*
-- name: BP_MAVEN_BUILD_ARGUMENTS
-  value: package -DskipTests=true -Dmaven.javadoc.skip=true -Dquarkus.package.type=native-sources
-- name: BP_NATIVE_IMAGE_BUILD_ARGUMENTS_FILE
-  value: native-image.args
-- name: BP_NATIVE_IMAGE_BUILT_ARTIFACT
-  value: '*-runner.jar'
+The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
 
-```
-
-### Running
-
-This command runs the func locally in a container
-using the image created above.
+If you want to build an _über-jar_, execute the following command:
 ```shell script
-func run
+./mvnw package -Dquarkus.package.type=uber-jar
 ```
 
-### Deploying
+The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
 
-This commands will build and deploy the function into cluster.
+## Creating a native executable
 
+You can create a native executable using: 
 ```shell script
-func deploy # also triggers build
+./mvnw package -Pnative
 ```
 
-## Function invocation
-
-Do not forget to set `URL` variable to the route of your function.
-
-You get the route by following command.
+Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
 ```shell script
-func info
+./mvnw package -Pnative -Dquarkus.native.container-build=true
 ```
 
-### cURL
+You can then execute your native executable with: `./target/quarkus-rest-api-1.0.0-SNAPSHOT-runner`
 
-```shell script
-URL=http://localhost:8080/
-curl -v ${URL} \
-  -H "Content-Type:application/json" \
-  -d "{\"message\": \"$(whoami)\"}\""
-# OR
-URL="http://localhost:8080/?message=$(whoami)"
-curl -v ${URL} 
-```
+If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.
 
-### HTTPie
+## Provided Code
 
-```shell script
-URL=http://localhost:8080/
-http -v ${URL} \
-  message=$(whoami)
-# OR
-URL="http://localhost:8080/?message=$(whoami)"
-http -v ${URL}
-```
+### RESTEasy Reactive
+
+Easily start your Reactive RESTful Web Services
+
+[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)

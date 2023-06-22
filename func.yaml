@@ -1,12 +1,10 @@
 specVersion: 0.35.0
-name: quarkus-func1
+name: quarkus-rest-api
 runtime: quarkus
 registry: quay.io/mvinkler
-image: quay.io/mvinkler/quarkus-func1:latest
-imageDigest: sha256:3231c601c977f9765f64d4fe3e544f4ef19d208176c71e13b0dc9f0bd893e30c
-created: 2023-06-22T12:34:05.764997036+02:00
+image: quay.io/mvinkler/quarkus-rest-api:latest
+created: 2023-06-22T16:09:14.223118876+02:00
 build:
-  builder: s2i
   buildEnvs:
   - name: BP_JVM_VERSION
     value: "17"
@@ -22,5 +20,3 @@ build:
   - name: S2I_SOURCE_DEPLOYMENTS_FILTER
     value: lib quarkus-run.jar app quarkus
   pvcSize: 256Mi
-deploy:
-  namespace: knative-serving-demo
