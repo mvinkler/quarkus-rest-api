@@ -1,8 +1,15 @@
-# quarkus-rest-api
+# quarkus-rest-api as Serverless Service
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
+
+## Deploying to Openshift
+
+* Login to OCP via 'oc login ...'
+* download latest kn cli from https://mirror2.openshift.com/pub/openshift-v4/x86_64/clients/serverless/latest/
+* deploy your service via 'kn func deploy -r quay.io/johndoe -v' (replace quay.io/johndoe with your registry)
+
 
 ## Running the application in dev mode
 
