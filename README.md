@@ -6,9 +6,11 @@ If you want to learn more about Quarkus, please visit its website: https://quark
 
 ## Deploying to Openshift
 
-* Login to OCP via 'oc login ...'
-* download latest kn cli from https://mirror2.openshift.com/pub/openshift-v4/x86_64/clients/serverless/latest/
-* deploy your service via 'kn func deploy -r quay.io/johndoe -v' (replace quay.io/johndoe with your registry)
+* Login to OCP via `oc login ...`
+* download latest `kn` cli from https://mirror2.openshift.com/pub/openshift-v4/x86_64/clients/serverless/latest/
+* deploy your service via `kn func deploy -r quay.io/johndoe -v` (replace `quay.io/johndoe` with your registry)
+* or just use image at `quay.io/mvinkler/quarkus-rest-api` like this:
+  * `kn service create quarkus-rest-api --image quay.io/mvinkler/quarkus-rest-api`
 
 
 ## Running the application in dev mode
